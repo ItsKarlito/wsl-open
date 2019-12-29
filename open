@@ -1,14 +1,15 @@
 #!/bin/bash
 
-WSL_PATH=$(pwd)
+PWD=$(pwd)
+WSL_PATH=$1
+WIN_PATH=$(wslpath -w $WSL_PATH)
 
-if [[ -d $1 ]]; then
-    echo "$1 is a directory"
-elif [[ -f $1 ]]; then
-    echo "$1 is a file"
+if [[ -d $WSL_PATH ]]; then
+	echo "$WSL_PATH is a directory"
+	cmd.exe /c start "" "$WIN_PATH"
+elif [[ -f $WSL_PATH ]]; then
+	echo "$WSL_PATH is a file"
 else
-    echo "$1 is not valid"
-    exit 1
+	echo "$WSL_PATH is not valid"
+	exit 1
 fi
-
-echo $WSL_PATH
