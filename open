@@ -2,14 +2,16 @@
 
 PWD=$(pwd)
 WSL_PATH=$1
-WIN_PATH=$(wslpath -w $WSL_PATH)
 
 if [[ -d $WSL_PATH ]]; then
-	echo "$WSL_PATH is a directory"
-	cmd.exe /c start "" "$WIN_PATH"
+	WIN_PATH=$(wslpath -w $WSL_PATH)
+	cmd.exe /c start "" "${WIN_PATH}"
 elif [[ -f $WSL_PATH ]]; then
-	echo "$WSL_PATH is a file"
+	WSL_DIR=$(dirname "${WSL_PATH}")
+	WSL_FILE=$(basename "${WSL_PATH}")
+	cd $WSL_DIR
+	cmd.exe /c start "" "${WSL_FILE}"
 else
-	echo "$WSL_PATH is not valid"
+	echo "Invalid Argument: ${WSL_PATH}"
 	exit 1
 fi
