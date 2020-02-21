@@ -1,17 +1,17 @@
 #!/bin/bash
 
-PWD=$(pwd)
-WSL_PATH=$1
-
-if [[ -d $WSL_PATH ]]; then
-	WIN_PATH=$(wslpath -w $WSL_PATH)
-	cmd.exe /c start "" "${WIN_PATH}"
-elif [[ -f $WSL_PATH ]]; then
-	WSL_DIR=$(dirname "${WSL_PATH}")
-	WSL_FILE=$(basename "${WSL_PATH}")
+if [[ -z $1 ]]; then
+	explorer.exe .
+elif [[ -d $1 ]]; then
+	cd $1
+	explorer.exe .
+elif [[ -f $1 ]]; then
+	WSL_DIR=$(dirname "${1}")
+	WSL_FILE=$(basename "${1}")
 	cd $WSL_DIR
 	cmd.exe /c start "" "${WSL_FILE}"
 else
-	echo "Invalid Argument: ${WSL_PATH}"
+	echo "Invalid Argument: ${1}"
 	exit 1
 fi
+
