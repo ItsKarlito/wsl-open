@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [[ -z $1 ]]; then
-	explorer.exe .
-elif [[ -d $1 ]]; then
+if [[ -z $1 ]] || [[ -d $1 ]] ; then
 	cd $1
 	explorer.exe .
 elif [[ -f $1 ]]; then
